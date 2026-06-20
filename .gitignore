@@ -1,0 +1,23 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Secrets / local state — NEVER commit
+.env
+.env.*
+!.env.example
+.twak/
+*.keystore
+
+# bnbagent identity keystore
+.wallets/
+
+# agent runtime state
+.sentinel_state.json
