@@ -70,30 +70,69 @@ intelligence the way it budgets risk.
 
 ---
 
-## Run it
+## Setup
 
+### Prerequisites
+- **Python 3.12**
+- **[uv](https://docs.astral.sh/uv/)** — the package manager/runner (`curl -LsSf https://astral.sh/uv/install.sh | sh`)
+- **git**
+- A **CoinMarketCap API key** — only needed for the *live* read (steps 3–4). The backtest and
+  tests run with no key. Get one free at [coinmarketcap.com/api](https://coinmarketcap.com/api/).
+
+### 1. Clone and install
 ```bash
-# install (Python 3.12, uv)
-uv sync
-
-# 1) Track 2 Skill backtest (no key needed)
-uv run python skills/sentinel-regime-rotator/scripts/backtest.py
-
-# 2) Regime engine tests + token routing checks
-uv run python tests/test_regime.py
-uv run python scripts/verify_tokens.py
-
-# 3) Live regime read from real CMC data  (set CMC_API_KEY in .env)
-uv run python -m src.sentinel.agent          # paper backtest
-# live signals: see src/sentinel/data/cmc.py
+git clone https://github.com/itskumar666/BNB-Sentinel.git
+cd BNB-Sentinel
+uv sync                 # creates .venv and installs all dependencies
 ```
 
-To use the Skill in any agent, add the CMC MCP and copy the skill folder:
+### 2. Configure (only for the live read)
+```bash
+cp .env.example .env
+# then open .env and set CMC_API_KEY=your-key
+```
 
+### 3. Run it
+Each command is independent. **(1) and (2) need no API key.**
+
+```bash
+# 1) Strategy backtest — the Track 2 deliverable, full market cycle
+uv run python skills/sentinel-regime-rotator/scripts/backtest.py
+#    → ends with: Return +14.9% (buy & hold -1.7%) | Max drawdown 6.6% (PASS vs 30% gate)
+
+# 2) Engine unit tests + token-routing checks
+uv run python tests/test_regime.py        # → 8/8 scenarios passed.
+uv run python scripts/verify_tokens.py     # → all 9 universe tokens resolve
+
+# 3) LIVE regime read from real CoinMarketCap data  (needs CMC_API_KEY)
+uv run python live_read.py
+#    → Fear&Greed 22 | RSI 52 | MACD +14.3
+#    → x402: sentiment and momentum disagree — buying deep data to break the tie
+#    → Fear & Greed 22 → extreme fear ... Target 18% risk-on.
+```
+
+### 4. Watch the whole thing run (optional)
+A narrated, paced walkthrough of all of the above — ideal for a screen recording:
+```bash
+bash demo_run.sh
+```
+
+### Using the Skill in your own agent
+The Track 2 deliverable is portable. Copy `skills/sentinel-regime-rotator/` into any agent's
+skills directory and add the CoinMarketCap MCP server:
 ```json
 { "mcpServers": { "cmc-mcp": { "url": "https://mcp.coinmarketcap.com/mcp",
   "headers": { "X-CMC-MCP-API-KEY": "your-key" } } } }
 ```
+
+### Verify the on-chain identity (optional)
+```bash
+uv run python -c "from dotenv import load_dotenv; load_dotenv(); import os; \
+from bnbagent import ERC8004Agent, EVMWalletProvider; \
+w=EVMWalletProvider(password=os.environ['IDENTITY_WALLET_PASSWORD'],persist=True,wallets_dir='.wallets'); \
+print('tradingWallet:', ERC8004Agent(w,network='bsc-testnet').get_metadata(1442,'tradingWallet'))"
+```
+Or view it directly on BscScan testnet — tx `0xc8609aeaeaf914ab7094126e081088daf664135baa97512f25bdf85df6d4d2d4`.
 
 ---
 
