@@ -77,7 +77,7 @@ intelligence the way it budgets risk.
 uv sync
 
 # 1) Track 2 Skill backtest (no key needed)
-python skills/sentinel-regime-rotator/scripts/backtest.py
+uv run python skills/sentinel-regime-rotator/scripts/backtest.py
 
 # 2) Regime engine tests + token routing checks
 uv run python tests/test_regime.py
