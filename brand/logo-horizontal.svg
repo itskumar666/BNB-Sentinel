@@ -1,0 +1,48 @@
+<svg width="1600" height="440" viewBox="0 0 1600 440" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="shield2" x1="220" y1="60" x2="220" y2="392" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1b2330"/>
+      <stop offset="1" stop-color="#0b0e13"/>
+    </linearGradient>
+    <linearGradient id="rim2" x1="80" y1="60" x2="360" y2="392" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f0b90b"/>
+      <stop offset="1" stop-color="#b8860b"/>
+    </linearGradient>
+    <linearGradient id="curve2" x1="120" y1="0" x2="320" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3fb950"/>
+      <stop offset="0.55" stop-color="#f0b90b"/>
+      <stop offset="1" stop-color="#3fb950"/>
+    </linearGradient>
+    <clipPath id="sc2">
+      <path d="M220 70 L360 120 V256 C360 316 294 364 220 386 C146 364 80 316 80 256 V120 Z"/>
+    </clipPath>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1600" y2="440" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0f141b"/>
+      <stop offset="1" stop-color="#080a0e"/>
+    </linearGradient>
+  </defs>
+
+  <!-- dark panel so it reads in both light and dark contexts -->
+  <rect x="0" y="0" width="1600" height="440" rx="56" fill="url(#bg2)"/>
+
+  <!-- mark -->
+  <path d="M220 70 L360 120 V256 C360 316 294 364 220 386 C146 364 80 316 80 256 V120 Z"
+        fill="url(#shield2)" stroke="url(#rim2)" stroke-width="10" stroke-linejoin="round"/>
+  <g clip-path="url(#sc2)" stroke="#2a3442" stroke-width="1.5" opacity="0.6">
+    <line x1="80" y1="180" x2="360" y2="180"/>
+    <line x1="80" y1="230" x2="360" y2="230"/>
+    <line x1="80" y1="280" x2="360" y2="280"/>
+  </g>
+  <g clip-path="url(#sc2)">
+    <path d="M118 280 L158 222 L192 184 L226 218 L258 286 L290 248 L326 184"
+          fill="none" stroke="url(#curve2)" stroke-width="14"
+          stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="326" cy="184" r="10" fill="#3fb950"/>
+  </g>
+
+  <!-- wordmark -->
+  <text x="430" y="232" font-family="Helvetica, Arial, sans-serif" font-size="150"
+        font-weight="800" fill="#e6edf3" letter-spacing="2">SENTINEL</text>
+  <text x="436" y="300" font-family="Helvetica, Arial, sans-serif" font-size="44"
+        font-weight="600" fill="#f0b90b" letter-spacing="9">SURVIVE FIRST</text>
+</svg>

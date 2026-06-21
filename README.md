@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="brand/logo-horizontal.png" alt="Sentinel — Survive First" width="660">
+</p>
+
 # Sentinel 🛡️
 
 **A self-custody autonomous trader that's frugal with two things: your capital, and its own data budget.**
