@@ -21,3 +21,9 @@ wheels/
 
 # agent runtime state
 .sentinel_state.json
+
+# internal meta-docs (kept local, not published)
+CLAUDE.md
+DEMO_SCRIPT.md
+PRD.md
+SUBMISSION.md
